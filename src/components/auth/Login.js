@@ -1,11 +1,9 @@
 import React,{useState} from 'react';
-import { Container, Form, Button, Row, Col, Spinner } from 'react-bootstrap';
+import { Form, Button, Spinner } from 'react-bootstrap';
 import styles from './Login.module.css'; 
 import { authAction } from '../../store/authSlice';
 import {Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-
-
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -13,16 +11,16 @@ const Login = () => {
     const [error, setError]= useState("");
     const navigate= useNavigate();
     const dispatch = useDispatch();
-
+  
     const handleLogin = async(e) => {
       e.preventDefault();
       setLoading(true)
-
+      
       if(!email || !password ){
         setError("All fields are mandatory!!");
         return
       }
-
+  
       try {
       const res= await fetch('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAAijcym1oifLtjjsoHvTSq8Tz5qPOtf5w', {
         method:'POST',
@@ -58,9 +56,8 @@ const Login = () => {
       }
       setEmail('');
       setPassword("");
-
+      
     };
-
   return (
     <div className={styles.loginContainer}>
       <div className={styles.loginCard}>
@@ -72,25 +69,22 @@ const Login = () => {
           <Form.Group controlId="formBasicPassword">
             <Form.Control type="password" placeholder="Password" className='mt-2' value={password}  onChange={(e) => setPassword(e.target.value)}/>
           </Form.Group>
-
           <p className={styles.errorMessage}>{error}</p>
           {!loading && <Button className={styles.btnLogin} variant="primary" type="submit" onClick={handleLogin}>
             Log In
           </Button>}
-          {loading && <Spinner animation='border' size='sm'/>}
-          {loading && <h2>Submitting Data...</h2>}
+          {loading && <><Spinner animation='border' size='md'/><h2>Submitting Data...</h2></>}
         </Form>
         <div className="text-center mt-3">
           <a href="#forgot-password" className={styles.forgotPassword}>
             Forgot password?
           </a>
           <p className={styles.notSignup}>
-            Do not have an account? <a href="#signup">Signup</a>
+            Do not have an account? <Link to="/signup">Signup</Link>
           </p>
         </div>
       </div>
     </div>
   );
 };
-
 export default Login;

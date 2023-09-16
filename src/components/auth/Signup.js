@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import { Col, Button, Row, Container, Card, Form, Spinner} from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Signup=()=> {
   const emailRef = useRef();
@@ -9,12 +9,9 @@ const Signup=()=> {
   const [isLoading, setIsLoading] = useState(false);
   const [validate, setValidate] = useState(false);
   const [error,setError]= useState("")
-
   const navigate = useNavigate();
-
   const submitHandler = (e) => {
     e.preventDefault();
-
     const form = e.currentTarget;
     if (form.checkValidity() === false) {
       e.preventDefault();
@@ -34,7 +31,7 @@ const Signup=()=> {
     }
       setIsLoading(true);
       fetch(
-        "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBHa61kQog4vVm2Jfiy0tLddA7Xx0cmcXM",
+        "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAAijcym1oifLtjjsoHvTSq8Tz5qPOtf5w",
         {
           method: "POST",
           body: JSON.stringify({
@@ -51,6 +48,7 @@ const Signup=()=> {
         setIsLoading(false);
         if (res.ok) {
           console.log(res);
+          navigate('/login');
         } else {
           res.json().then((data) => {
             let errorMessage = "Signup Failed";
@@ -67,7 +65,7 @@ const Signup=()=> {
   };
   return (
     <>
-      <Container style={{backgroundImage: "linear-gradient(to right, #4880EC, #019CAD)"}}>
+      <Container className="vw-100" style={{backgroundImage: "linear-gradient(to right, #4880EC, #019CAD)"}}>
         <Row className="vh-100 d-flex justify-content-center align-items-center">
           <Col md={7} lg={5} xs={10}>
             <Card className="px-5" style={{backgroundColor:"#e9ecef"}}>
@@ -91,7 +89,6 @@ const Signup=()=> {
                     </Form.Text>
                     <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                   </Form.Group>
-
                   <Form.Group className="mb-3">
                     <Form.Label>Password</Form.Label>
                     <Form.Control
@@ -116,14 +113,13 @@ const Signup=()=> {
                       Create Account
                     </Button> }
                   </div>
-
                   {isLoading && <Spinner animation="border" size="sm"/>}
                 </Form>
                 <p className="mb-0 mt-3 text-center">
                   Already have an account??{" "}
-                  <a href="/login" className="text-success fw-bold">
+                  <Link to="/login" className="text-success fw-bold">
                     Sign In
-                  </a>
+                  </Link>
                 </p>
               </Card.Body>
             </Card>
