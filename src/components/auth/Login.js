@@ -22,7 +22,7 @@ const Login = () => {
       }
   
       try {
-      const res= await fetch('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=https://mail-box-d8f7b-default-rtdb.firebaseio.com/', {
+      const res= await fetch('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAAijcym1oifLtjjsoHvTSq8Tz5qPOtf5w', {
         method:'POST',
         body: JSON.stringify({
           email:email,
@@ -81,9 +81,9 @@ const Login = () => {
         </div>}
         </Form>
         <div className="text-center mt-3">
-          <a href="#forgot-password" className={styles.forgotPassword}>
+          <Link to="/forgetpassword" className={styles.forgotPassword}>
             Forgot password?
-          </a>
+          </Link>
           <p className={styles.notSignup}>
             Do not have an account? <Link to="/signup">Signup</Link>
           </p>

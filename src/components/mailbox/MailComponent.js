@@ -4,18 +4,28 @@ import { EditorState } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import { Card, Form, InputGroup,Spinner,Button } from "react-bootstrap";
-
 const MailComponent = (props) => {
   const [to, setTo] = useState('');
   const [subject, setSubject] = useState('');
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
   const [mailBody, setMailBody] = useState("");
   const [loading, setLoading] = useState(false)
-
   useEffect(()=>{
     setMailBody(editorState.getCurrentContent().getPlainText());
 }, [editorState]);
+
   const senderEmail= localStorage.getItem('email');
+  const formatDate = (date) => {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    const seconds = String(date.getSeconds()).padStart(2, '0');
+
+    return `${day}/${month}/${year} - ${hours}:${minutes}:${seconds}`;
+};
+const formattedDate = formatDate(new Date());
 
   const handleSend = async() => {
    setLoading(true)
@@ -24,6 +34,10 @@ const MailComponent = (props) => {
         to: to,
         subject: subject,
         message: mailBody,
+        read:true,
+        time:formattedDate,
+        send:true,
+        receive:false
       };
 
       try{
@@ -42,7 +56,6 @@ const MailComponent = (props) => {
       }catch(err){
         console.log(err);
       }
-
       try {
         const mail = to.replace(/[@.]/g, "");
         const response = await fetch(
@@ -53,6 +66,10 @@ const MailComponent = (props) => {
               from: senderEmail,
               subject: subject,
               message: mailBody,
+              read:false,
+              time:formattedDate,
+              send:false,
+              receive:true
             }),
             headers: {
               "Content-Type": "application/json",
@@ -65,12 +82,10 @@ const MailComponent = (props) => {
       } catch (err) {
         alert(err);
       }
-
      setTo("");
      setSubject("");
      setEditorState(EditorState.createEmpty());
   };
-
   return (
     <>
     <Modal
