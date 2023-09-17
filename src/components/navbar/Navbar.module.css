@@ -1,15 +1,17 @@
 .navbar {
     position: sticky;
       width: 100%;
-        background: linear-gradient(to right, #2c3e50, #bdc3c7);;
-        color: #fff;
+        background: linear-gradient(to right, #2c3e50, #bdc3c7);
         display: flex;
         justify-content: space-around;
         align-items: center;
         padding: 10px 20px;
         z-index: 2;
       }
-  
+      .title{
+        text-decoration: none;
+        color: #fff;
+      }
       .navbarTitle {
         display: flex;
         font-size: 26px;
@@ -24,7 +26,7 @@
         margin: 0;
         padding: 0;
       }
-  
+      
       .navItem {
         display: flex;
         font-size: 1.2rem;
@@ -35,7 +37,7 @@
       .navLink{
         display: flex;
         text-decoration: none;
-        color: #fff;
+        color: #1a1a1a;
         transition: color 0.3s ease;
         opacity: 0.8;
   
@@ -52,13 +54,13 @@
         opacity: 1;
       }
       .navbarNav button{
-        color: white;
+        color: #1a1a1a;
         background-color: #aeb5bdd3;
         border: none;
         cursor: pointer;
         font-size: 1.2rem;
       }
-  
+      
     .hamburgerButton{
       display: flex;
       justify-content: center;
@@ -66,7 +68,7 @@
         width: 2.5rem;
         opacity: 0;
     }
-  
+    
       @media (max-width: 750px) {
         .hamburgerButton{
             opacity: 1;
@@ -87,25 +89,25 @@
           z-index: 1;
           box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
-  
+      
         .navbarNav.active {
           display: flex;
         }
-  
+      
         .navItem {
           display: flex;
           font-size: 1.2rem;
           margin: .3rem 1rem;
           text-align: center;
         }
-  
+      
         .navLink {
           text-decoration: none;
           color: #fff;
           height: 2rem;
           transition: color 0.3s ease;
         }
-  
+      
         .navLink:hover {
           color: #f0f0f0;
         }
