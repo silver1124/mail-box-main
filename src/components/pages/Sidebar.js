@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React,{useEffect, useState} from "react";
 import { Button } from "react-bootstrap";
 import MailComponent from "../mailbox/MailComponent";
 import { BiMailSend,BiTrash } from "react-icons/bi";
@@ -6,7 +6,6 @@ import { TbMailPlus,TbMailOpenedFilled } from "react-icons/tb";
 import { RiMailUnreadFill    } from "react-icons/ri";
 import { Link } from "react-router-dom"; 
 import { useSelector } from "react-redux";
-
 import {
   CDBSidebar,
   CDBSidebarHeader,
@@ -19,8 +18,14 @@ import {
 
 const Sidebar = () => {
   const [modalShow, setModalShow] = useState(false);
+  const [mailCount, setMailCount] = useState(0);
+  const email= localStorage.getItem("email")
   const inboxMails = useSelector((state)=> state.email.unreadMails)
-  console.log(inboxMails);
+
+  useEffect(()=>{
+    setMailCount(inboxMails);
+  },[email,inboxMails])
+
   return (
     <>
       <MailComponent show={modalShow} onHide={() => setModalShow(false)} />
@@ -44,12 +49,13 @@ const Sidebar = () => {
           <CDBSidebarContent>
           <CDBSidebarMenu>
           <CDBSidebarMenuItem suffix={
-            <CDBBadge color="danger" size="small" borderType="pill">{inboxMails}</CDBBadge>}> <Link to="inbox"><RiMailUnreadFill/> Inbox</Link></CDBSidebarMenuItem>
+            <CDBBadge color="danger" size="small" borderType="pill">{mailCount}</CDBBadge>}> <Link to="inbox"><RiMailUnreadFill/> Inbox</Link></CDBSidebarMenuItem>
             <CDBSidebarMenuItem suffix={<CDBBadge>4</CDBBadge>}> <TbMailOpenedFilled/> All Mails</CDBSidebarMenuItem>
              <CDBSidebarMenuItem><BiMailSend/> Outbox</CDBSidebarMenuItem>
-             <CDBSidebarMenuItem><BiTrash/> Trash</CDBSidebarMenuItem>
+             <CDBSidebarMenuItem><Link to="/inbox/deletedMails/:id"><BiTrash/> Trash</Link></CDBSidebarMenuItem>
           </CDBSidebarMenu>
           </CDBSidebarContent>
+
           <CDBSidebarFooter style={{ textAlign: 'center' }}>
           <div
             className="sidebar-btn-wrapper"
