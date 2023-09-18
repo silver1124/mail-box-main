@@ -5,11 +5,13 @@ import Header from "./components/navbar/Header";
 import Signup from "./components/auth/Signup";
 import Login from "./components/auth/Login";
 import ForgetPassword from "./components/auth/ForgetPassword";
-import Home from "./components/pages/Home";
+import Home from "./components/pages/Home"
 import About from "./components/pages/About";
 import Inbox from "./components/mailbox/Inbox";
 import OpenMails from "./components/mailbox/OpenMails";
 import DeletedMails from "./components/mailbox/DeletedMails";
+import Outbox from "./components/mailbox/Outbox";
+import OpenOutbox from "./components/mailbox/OpenOutbox";
 
 function App() {
   const isLoggedIn= useSelector((state) => state.auth.isLoggedIn);
@@ -23,6 +25,8 @@ function App() {
    {isLoggedIn && <Route path="/home" element={<Home/>}/> }
    {isLoggedIn && <Route path="/inbox" element={<Inbox/>}/>}
    {isLoggedIn && <Route path="/inbox/:id" element={<OpenMails/>}/>}
+      {isLoggedIn && <Route path="/outbox" element={<Outbox/>}/>}
+      {isLoggedIn && <Route path="/outbox/:id" element={<OpenOutbox/>}/>}
    {isLoggedIn && <Route path="/inbox/deletedMails/:id" element={<DeletedMails/>}/>}
    {!isLoggedIn && <Route path="/forgetpassword" element={<ForgetPassword/>}/>}
    {!isLoggedIn && <Route path='*' element={<Navigate to='/login'/>}/>}

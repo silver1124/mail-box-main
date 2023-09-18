@@ -40,7 +40,6 @@ const Inbox = () => {
   useEffect(() => {
     getData();
   }, [getData]);
-
   const DeleteHandler = async (id) => {
     console.log(id);
     const mail = data.filter((item)=> item.id===id);
@@ -55,16 +54,14 @@ const Inbox = () => {
         },
       }
     );
-
     let response = await res;
     console.log(response);
     getData();
   };
-
   return (
     <>
       <Card bg="light">
-        <h2 style={{ textAlign: "center" }}>Inbox</h2>
+        <h2 style={{ textAlign: "center",textDecoration:"underline" }}>Inbox</h2>
         <ListGroup>
           {data.length === 0 && <h5 style={{textAlign:"center", margin:"1rem auto"}}>No Mails in Inbox!!</h5>}
           {loading && data.length>0 && <Spinner/>}

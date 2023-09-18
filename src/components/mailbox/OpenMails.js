@@ -1,23 +1,17 @@
-import React, {useEffect, Fragment } from "react";
+import React, {useEffect } from "react";
 import { Link } from "react-router-dom";
 import { BiArrowBack } from "react-icons/bi";
 
 import { useParams, useNavigate } from "react-router-dom";
-
 import { useSelector } from "react-redux";
 import { Card } from "react-bootstrap";
-
 const OpenMails = () => {
   const navigate = useNavigate();
-
   const { id } = useParams();
   const mails = useSelector((state) => state.email.recieved);
-
   const email = localStorage.getItem("email");
   const changedMail = email.replace(/[@.]/g, "");
-
   const selectedMail = mails.filter((item) => item.id === id);
-
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetch(
@@ -39,7 +33,7 @@ const OpenMails = () => {
   }, [id, changedMail]);
 
   return (
-    <Fragment>
+    <>
       <Card bg="light" className="vh-100">
         <Card.Header
           style={{
@@ -74,7 +68,7 @@ const OpenMails = () => {
         )}
         {!selectedMail[0] && navigate("/inbox")}
       </Card>
-    </Fragment>
+    </>
   );
 };
 
