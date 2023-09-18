@@ -1,11 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
+
+const unreadMails=  localStorage.getItem("numberOfMails");
 const mailSlice = createSlice({
   name: "email",
   initialState: {
     recieved: [],
     sent: [],
     trash:[],
-    unreadMails: localStorage.getItem("numberOfMails"),
+    unreadMails: unreadMails? unreadMails:0,
     email:
       localStorage.getItem("email")?.replace(".", "")?.replace("@", "") || "",
   },
@@ -24,6 +26,5 @@ const mailSlice = createSlice({
     }
   },
 });
-
 export const mailActions = mailSlice.actions;
 export default mailSlice.reducer;
